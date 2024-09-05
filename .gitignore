@@ -131,3 +131,5 @@ dist
 .DS_Store
 __tests__/main.test.ts
 yarn.lock
+public/swagger.json
+src/routes/routes.ts

@@ -1,4 +1,4 @@
-import { Get, Res, Route, Tags, TsoaResponse } from "tsoa";
+import { Get, Query, Res, Route, Tags, TsoaResponse } from "tsoa";
 import crawlService from "services/crawl/crawl.service";
 import { ResponseMessage } from "./response/common.res";
 
@@ -13,10 +13,11 @@ export class CrawlController {
   @Get("/")
   public async text(
     @Res() notFoundResponse: TsoaResponse<404, ResponseMessage>,
+    @Query() headless?: boolean,
   ): Promise<Response> {
     return {
       responseCode: 200,
-      data: await crawlService.exampleCrawl().catch((error: string) => {
+      data: await crawlService.exampleCrawl(headless).catch((error: string) => {
         return notFoundResponse(404, {
           responseCode: 404,
           isSuccess: false,

@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 
-async function exampleCrawl() {
-  const browser = await puppeteer.launch();
+async function exampleCrawl(headless: boolean = false) {
+  const browser = await puppeteer.launch({ headless: headless });
   const page = await browser.newPage();
 
   // Navigate the page to a URL
