@@ -1,4 +1,5 @@
 {
+	"openapi": "3.0.0",
 	"components": {
 		"examples": {},
 		"headers": {},
@@ -12,7 +13,56 @@
 						"type": "string"
 					}
 				},
-				"required": ["message"],
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Response": {
+				"properties": {
+					"responseCode": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"responseCode",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResponseStatus": {
+				"enum": [
+					200,
+					400,
+					401,
+					403,
+					404,
+					500
+				],
+				"type": "number"
+			},
+			"ResponseMessage": {
+				"properties": {
+					"responseCode": {
+						"$ref": "#/components/schemas/ResponseStatus"
+					},
+					"isSuccess": {
+						"type": "boolean"
+					},
+					"message": {
+						"type": "string"
+					},
+					"data": {}
+				},
+				"required": [
+					"responseCode"
+				],
 				"type": "object",
 				"additionalProperties": false
 			}
@@ -20,15 +70,14 @@
 		"securitySchemes": {}
 	},
 	"info": {
-		"title": "node-typescript-boilerplate",
+		"title": "boilerplate-node-nodejs-spider-crawl-puppeteer",
 		"version": "0.0.0",
-		"description": "boilerplate to quick-start Node.js Express backend development in TypeScript.",
+		"description": "boilerplate node nodejs spider crawl puppeteer",
 		"license": {
 			"name": "Apache-2.0"
 		},
 		"contact": {}
 	},
-	"openapi": "3.0.0",
 	"paths": {
 		"/ping": {
 			"get": {
@@ -45,7 +94,41 @@
 						}
 					}
 				},
-				"tags": ["ping"],
+				"tags": [
+					"ping"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/crawl": {
+			"get": {
+				"operationId": "Text",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Response"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ResponseMessage"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Crawl"
+				],
 				"security": [],
 				"parameters": []
 			}
